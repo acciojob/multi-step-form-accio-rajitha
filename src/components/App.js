@@ -31,13 +31,13 @@ const App = () => {
     const newErrors = { ...errors };
 
     if (id === 'card_info' && value.replace(/\D/g, '').length !== 12) {
-      newErrors.card_info = 'Card number must be exactly 12 digits';
+      newErrors.card_info = 'Card number must be exactly 12 digits long';
     } else {
       delete newErrors.card_info;
     }
 
     if (id === 'expiry_date' && !/^(0[1-9]|1[0-2])\/\d{2}$/.test(value)) {
-      newErrors.expiry_date = 'Expiration date must be in MM/YY format';
+      newErrors.expiry_date = 'Expiration date must be in format MM/YY.';
     } else {
       delete newErrors.expiry_date;
     }
