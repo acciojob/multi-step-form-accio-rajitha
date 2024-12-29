@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Step from './Step';
+import Step from './Step';  // Correct import path
 import './../styles/App.css';
 
 const App = () => {
