@@ -31,13 +31,13 @@ const App = () => {
     const newErrors = { ...errors };
 
     if (id === 'card_info' && value.replace(/\D/g, '').length !== 12) {
-      newErrors.card_info = 'Card number must be exactly 12 digits long';
+      newErrors.card_info = 'Card number must be exactly 12 digits';
     } else {
       delete newErrors.card_info;
     }
 
     if (id === 'expiry_date' && !/^(0[1-9]|1[0-2])\/\d{2}$/.test(value)) {
-      newErrors.expiry_date = 'Expiration date must be in format MM/YY.';
+      newErrors.expiry_date = 'Expiration date must be in MM/YY format';
     } else {
       delete newErrors.expiry_date;
     }
@@ -49,11 +49,11 @@ const App = () => {
     if (currentStep === 3 && Object.keys(errors).length > 0) {
       return;
     }
-    setCurrentStep(currentStep + 1);
+    setCurrentStep(prevStep => prevStep + 1);
   };
 
   const prevStep = () => {
-    setCurrentStep(currentStep - 1);
+    setCurrentStep(prevStep => prevStep - 1);
   };
 
   const handleSubmit = (e) => {
