@@ -2,8 +2,6 @@
 /* App.css */
 
 /* Basic layout styles */
-/* App.css */
-
 /* Basic layout styles */
 .form-container {
     max-width: 300px;
@@ -57,80 +55,15 @@
     transition: background-color 0.3s;
   }
   
+  /* Styling for navigation buttons */
   button[type="button"] {
     margin-right: 10px;
   }
   
-  /* Error Message */
+  /* Error messages */
   .error {
     color: red;
     font-size: 12px;
     margin-top: 5px;
   }
-  
-  /* Styling for navigation buttons */
-  button[type="button"] {
-    margin-right: 10px;
-  }
-  /*
-.form-container {
-    max-width: 300px;
-    margin: 0 auto;
-    padding: 20px;
-    font-family: Arial, sans-serif;
-    background-color: #75d0eb;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  h1 {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  h2 {
-    margin-bottom: 10px;
-    color: #333;
-  }
-  
-  label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-  }
-  
-  input {
-    width: 50%;
-    padding: 10px;
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 14px;
-  }
-  
-  input:focus {
-    border-color: #000;
-    outline: none;
-  }
-  
-  /* Buttons */
-  /*button {
-    padding: 10px 20px;
-    font-size: 16px;
-    background-color: #22f479;
-    color: white;
-    border: none;
-    border-radius: 20px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  
- 
-  
-  /* Styling for navigation buttons */
- /* button[type="button"] {
-    margin-right: 10px;
-  }
-  */
-  
   

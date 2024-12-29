@@ -12,11 +12,7 @@ const App = () => {
     card_info: '',
     expiry_date: ''
   });
-
-  const [errors, setErrors] = useState({
-    card_info: '',
-    expiry_date: ''
-  });
+  const [errors, setErrors] = useState({});
 
   // Handler for changing form data
   const handleInputChange = (e) => {
@@ -25,25 +21,29 @@ const App = () => {
       ...formData,
       [id]: value
     });
+  };
 
-    // Clear errors on input change
-    if (errors[id]) {
-      setErrors({
-        ...errors,
-        [id]: ''
-      });
+  // Validate form data for credit card and expiry date
+  const validatePayment = () => {
+    const newErrors = {};
+    const cardInfo = formData.card_info.replace(/\D/g, ''); // Remove non-numeric characters
+    if (cardInfo.length !== 12) {
+      newErrors.card_info = 'Card number must be exactly 12 digits';
     }
+    const expiryDateRegex = /^(0[1-9]|1[0-2])\/\d{2}$/;
+    if (!expiryDateRegex.test(formData.expiry_date)) {
+      newErrors.expiry_date = 'Expiration date must be in MM/YY format';
+    }
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
   // Next button handler
   const nextStep = () => {
-    if (currentStep === 3) {
-      if (validatePaymentDetails()) {
-        setCurrentStep(currentStep + 1);
-      }
-    } else {
-      setCurrentStep(currentStep + 1);
+    if (currentStep === 3 && !validatePayment()) {
+      return; // Stop navigation if there are validation errors
     }
+    setCurrentStep(currentStep + 1);
   };
 
   // Previous button handler
@@ -51,31 +51,10 @@ const App = () => {
     setCurrentStep(currentStep - 1);
   };
 
-  // Validate payment details (credit card and expiry date)
-  const validatePaymentDetails = () => {
-    let isValid = true;
-    let newErrors = {};
-
-    const cardPattern = /^[0-9]{12}$/;  // Exactly 12 digits
-    const expiryPattern = /^(0[1-9]|1[0-2])\/\d{2}$/;  // MM/YY format
-
-    if (!cardPattern.test(formData.card_info)) {
-      newErrors.card_info = 'Card number must be exactly 12 digits.';
-      isValid = false;
-    }
-
-    if (!expiryPattern.test(formData.expiry_date)) {
-      newErrors.expiry_date = 'Expiration date must be in MM/YY format.';
-      isValid = false;
-    }
-
-    setErrors(newErrors);  // Set the error messages
-    return isValid;
-  };
-
   // Form submission handler
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!validatePayment()) return;
     console.log(formData); // For now, just log the collected data
     alert('Form submitted!');
   };
@@ -91,7 +70,6 @@ const App = () => {
           nextStep={nextStep}
           errors={errors}
         />
-        
         {currentStep > 1 && (
           <button type="button" onClick={prevStep}>
             Previous

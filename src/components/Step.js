@@ -4,7 +4,7 @@ const Step = ({ currentStep, formData, handleInputChange, nextStep, prevStep, er
   switch (currentStep) {
     case 1:
       return (
-        <div>
+        <div data-testid="step1">
           <h2>Customer Details</h2>
           <div>
             <label htmlFor="first_name">First Name:</label>
@@ -31,7 +31,7 @@ const Step = ({ currentStep, formData, handleInputChange, nextStep, prevStep, er
 
     case 2:
       return (
-        <div>
+        <div data-testid="step2">
           <h2>Car Details</h2>
           <div>
             <label htmlFor="model">Brand:</label>
@@ -58,7 +58,7 @@ const Step = ({ currentStep, formData, handleInputChange, nextStep, prevStep, er
 
     case 3:
       return (
-        <div>
+        <div data-testid="step3">
           <h2>Payment Details</h2>
           <div>
             <label htmlFor="card_info">Credit Card Number:</label>
@@ -72,7 +72,7 @@ const Step = ({ currentStep, formData, handleInputChange, nextStep, prevStep, er
             {errors.card_info && <p className="error">{errors.card_info}</p>}
           </div>
           <div>
-            <label htmlFor="expiry_date">Expiration Date</label>
+            <label htmlFor="expiry_date">Expiration Date:</label>
             <input
               type="text"
               id="expiry_date"
