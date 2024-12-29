@@ -14,48 +14,54 @@ const App = () => {
   });
   const [errors, setErrors] = useState({});
 
-  // Handler for changing form data
   const handleInputChange = (e) => {
     const { id, value } = e.target;
     setFormData({
       ...formData,
       [id]: value
     });
+
+    // Validate input only for payment details fields when on step 3
+    if (currentStep === 3) {
+      validatePaymentInput(id, value);
+    }
   };
 
-  // Validate form data for credit card and expiry date
-  const validatePayment = () => {
-    const newErrors = {};
-    const cardInfo = formData.card_info.replace(/\D/g, ''); // Remove non-numeric characters
-    if (cardInfo.length !== 12) {
+  const validatePaymentInput = (id, value) => {
+    const newErrors = { ...errors };
+
+    if (id === 'card_info' && value.replace(/\D/g, '').length !== 12) {
       newErrors.card_info = 'Card number must be exactly 12 digits';
+    } else {
+      delete newErrors.card_info;
     }
-    const expiryDateRegex = /^(0[1-9]|1[0-2])\/\d{2}$/;
-    if (!expiryDateRegex.test(formData.expiry_date)) {
+
+    if (id === 'expiry_date' && !/^(0[1-9]|1[0-2])\/\d{2}$/.test(value)) {
       newErrors.expiry_date = 'Expiration date must be in MM/YY format';
+    } else {
+      delete newErrors.expiry_date;
     }
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+
+    setErrors(newErrors);  // Update errors state
   };
 
-  // Next button handler
   const nextStep = () => {
-    if (currentStep === 3 && !validatePayment()) {
-      return; // Stop navigation if there are validation errors
+    if (currentStep === 3 && Object.keys(errors).length > 0) {
+      return;
     }
     setCurrentStep(currentStep + 1);
   };
 
-  // Previous button handler
   const prevStep = () => {
     setCurrentStep(currentStep - 1);
   };
 
-  // Form submission handler
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!validatePayment()) return;
-    console.log(formData); // For now, just log the collected data
+    if (Object.keys(errors).length > 0) {
+      alert('Please fix the errors before submitting.');
+      return;
+    }
     alert('Form submitted!');
   };
 
