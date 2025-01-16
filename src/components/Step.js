@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const Step = ({ currentStep, formData, handleInputChange, errors }) => {
+const Step = ({ currentStep, formData, handleInputChange, errors }) => {
   switch (currentStep) {
     case 1:
       return (
